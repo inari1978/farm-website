@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DiDiFarm｜長野の畑と、畑の野菜の作り置き</title>
+<meta name="description" content="長野の畑で野菜を育て、東京・神奈川のご家庭でその野菜の作り置きをつくります。">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<!-- SNSで共有したときの表示（公開URLが決まったら BASE を直す） -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="DiDiFarm｜長野の畑と、畑の野菜の作り置き">
+<meta property="og:description" content="長野の畑で野菜を育て、東京・神奈川のご家庭でその野菜の作り置きをつくります。">
+<meta property="og:url" content="https://inari1978.github.io/farm-website/">
+<meta property="og:image" content="https://inari1978.github.io/farm-website/images/ogp.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/farm.css">
+</head>
+<body>
+
+
+<header class="hero">
+  <a class="hero-site" href="./">DiDiFarm</a>
+  <nav class="site-nav" aria-label="サイト内のリンク"><a href="farm/">長野の畑</a><!-- フェーズ2：作り置きの公開時に戻す <a href="kitchen/">作り置き</a> --></nav>
+
+  <!-- 等高線：山あいの畑らしさを出す飾り -->
+  <svg class="contour" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2">
+    <path opacity=".10" d="M0 520 C200 470 330 380 520 360 S860 300 1200 330"/>
+    <path opacity=".14" d="M0 540 C220 500 360 420 540 400 S880 350 1200 370"/>
+    <path opacity=".18" d="M0 560 C240 530 390 460 560 440 S900 400 1200 410"/>
+    <path opacity=".22" d="M0 578 C260 556 420 500 580 482 S920 448 1200 452"/>
+    <path opacity=".10" d="M0 300 C160 280 260 210 420 200 S700 230 860 170 S1100 120 1200 130"/>
+    <path opacity=".13" d="M0 330 C180 310 280 250 440 240 S720 270 880 215 S1110 170 1200 180"/>
+    <path opacity=".16" d="M0 362 C200 345 300 292 460 282 S740 310 900 262 S1120 222 1200 230"/>
+  </svg>
+
+  <p class="hero-altitude">畑は長野、台所は東京・神奈川<strong>東京 ⇄ 長野</strong>二拠点で暮らしています</p>
+
+  <h1 class="hero-copy">畑から、<br>台所へ。<span>自分で育てた野菜で、作り置きを。</span></h1>
+</header>
+
+<main>
+
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="inner">
+      <div class="photo"><img src="images/me.jpg" alt="DiDiFarmの代表" loading="lazy" onerror="this.remove()">本人の写真</div>
+      <div>
+        <h2 id="intro-title">はじめまして</h2>
+        <p class="lead">〇〇です。長野で畑を、東京・神奈川で作り置きの仕事をしています。</p>
+        <p>長野で食べた野菜のおいしさが忘れられず、自分で育てることにしました。</p>
+        <p>育てた野菜を、忙しいご家庭の食卓に届けたい。そう考えて、野菜を持ってご家庭にうかがい、その場で作り置きをつくるサービスを準備しています。</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="doors" aria-label="畑と作り置き">
+    <div class="inner">
+      <a class="door" href="farm/">
+        <div class="photo"><img src="images/top-farm.jpg" alt="長野の畑の風景" loading="lazy" onerror="this.remove()">畑の風景</div>
+        <div class="door-body">
+          <h3>長野の畑</h3>
+          <p>標高500mの畑を、土を起こすところからはじめています。</p>
+          <span class="go">畑のページを見る</span>
+        </div>
+      </a>
+      <!-- フェーズ2：作り置きの公開時に div を a href="kitchen/" に戻す -->
+      <div class="door">
+        <div class="photo"><img src="images/top-kitchen.jpg" alt="畑の野菜でつくった作り置き" loading="lazy" onerror="this.remove()">作り置きの料理</div>
+        <div class="door-body">
+          <h3>畑の野菜で、作り置き</h3>
+          <p>東京・神奈川のご家庭にうかがって、その場でつくります。</p>
+          <span class="go">準備中です。始まったらインスタでお知らせします</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="now-insta" aria-labelledby="insta-title">
+    <div class="inner">
+      <div>
+        <h2 id="insta-title">毎日のことは、インスタで</h2>
+        <p>畑の様子も、作り置きの献立も、インスタに載せています。</p>
+        <a class="button" href="https://www.instagram.com/" target="_blank" rel="noopener">インスタを見る</a>
+      </div>
+      <div class="insta-grid" aria-label="インスタの写真">
+        <a class="photo" href="https://www.instagram.com/" target="_blank" rel="noopener"><img src="images/insta-1.jpg" alt="インスタの投稿1" loading="lazy" onerror="this.remove()">投稿1</a>
+        <a class="photo" href="https://www.instagram.com/" target="_blank" rel="noopener"><img src="images/insta-2.jpg" alt="インスタの投稿2" loading="lazy" onerror="this.remove()">投稿2</a>
+        <a class="photo" href="https://www.instagram.com/" target="_blank" rel="noopener"><img src="images/insta-3.jpg" alt="インスタの投稿3" loading="lazy" onerror="this.remove()">投稿3</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="inner">
+    <div>
+      <p class="name">DiDiFarm</p>
+      <p>畑：長野県〇〇市　作り置き：東京・神奈川</p>
+    </div>
+    <nav aria-label="フッターのリンク">
+      <a href="">トップ</a>
+      <a href="farm/">長野の畑</a>
+      <!-- フェーズ2：作り置きの公開時に戻す <a href="kitchen/">作り置き</a> -->
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener">インスタ</a>
+      <a href="https://docs.google.com/forms/" target="_blank" rel="noopener">お問い合わせ</a>
+    </nav>
+  </div>
+  <div class="inner footer-sub">
+    <!-- AI相談ページの公開時に戻す <a href="ai/">AI・DX・RPAのご相談はこちら</a> -->
+    <span></span>
+    <small>© DiDiFarm</small>
+  </div>
+</footer>
+
+</body>
+</html>

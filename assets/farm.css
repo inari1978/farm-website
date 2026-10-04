@@ -1,0 +1,445 @@
+/* 色：信州の山の朝（霧・深い緑・苔・空・土） */
+:root {
+  --mist: #E8EDEA;
+  --mist-deep: #D5DED8;
+  --forest: #1F3B2D;
+  --moss: #5F7D43;
+  --sky: #8EA6B2;
+  --soil: #6B5340;
+  --ink: #18221D;
+  --paper: #F7F9F7;
+
+  --serif: "Shippori Mincho B1", "Hiragino Mincho ProN", serif;
+  --sans: "Zen Kaku Gothic New", "Hiragino Sans", sans-serif;
+
+  --gutter: clamp(16px, 5vw, 48px);
+  --measure: 34em;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 16px;
+  line-height: 1.9;
+  letter-spacing: 0.03em;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible {
+  outline: 3px solid var(--moss);
+  outline-offset: 3px;
+}
+
+/* たたき台の表示（本番では消す） */
+.draft-note {
+  background: var(--soil);
+  color: #fff;
+  font-size: 13px;
+  text-align: center;
+  padding: 6px var(--gutter);
+}
+
+/* ---------- トップ ---------- */
+.hero {
+  position: relative;
+  min-height: min(92vh, 820px);
+  background: linear-gradient(180deg, #C9D6D9 0%, var(--mist) 55%, var(--mist-deep) 100%);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  padding: 72px var(--gutter) 56px;
+}
+.hero .contour {
+  position: absolute;
+  inset: auto -10% -5% -10%;
+  width: 120%;
+  height: 75%;
+  color: var(--forest);
+}
+.hero-site {
+  position: absolute;
+  top: 20px;
+  left: var(--gutter);
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--forest);
+  text-decoration: none;
+}
+.hero-altitude {
+  position: relative;
+  align-self: end;
+  color: var(--forest);
+  font-size: 14px;
+  line-height: 1.6;
+}
+.hero-altitude strong {
+  display: block;
+  font-family: var(--serif);
+  font-size: clamp(40px, 9vw, 88px);
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: 0;
+}
+.hero-copy {
+  position: relative;
+  writing-mode: vertical-rl;
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(30px, 6.4vw, 60px);
+  line-height: 1.5;
+  letter-spacing: 0.18em;
+  color: var(--forest);
+  margin: 0;
+  animation: rise 1.6s ease-out both;
+}
+.hero-copy span {
+  display: block;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 15px;
+  letter-spacing: 0.25em;
+  margin-top: 0;
+  margin-right: 1.2em;
+  color: var(--ink);
+}
+@keyframes rise {
+  from { opacity: 0; transform: translateY(16px); filter: blur(4px); }
+  to   { opacity: 1; transform: none; filter: none; }
+}
+@media (prefers-reduced-motion: reduce) { .hero-copy { animation: none; } }
+
+/* ---------- 共通 ---------- */
+section { padding: clamp(64px, 11vw, 120px) var(--gutter); }
+.inner { max-width: 1040px; margin: 0 auto; }
+h2 {
+  font-family: var(--serif);
+  font-weight: 700;
+  font-size: clamp(24px, 4.2vw, 34px);
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+  margin: 0 0 1.2em;
+  color: var(--forest);
+}
+p { margin: 0 0 1.2em; max-width: var(--measure); }
+
+/* 写真の仮置き */
+.photo {
+  position: relative;
+  background:
+    repeating-radial-gradient(circle at 30% 120%, transparent 0 22px, rgba(31,59,45,.08) 22px 23px),
+    var(--mist-deep);
+  color: var(--forest);
+  display: flex;
+  align-items: flex-end;
+  padding: 12px 14px;
+  font-size: 13px;
+  border-radius: 4px;
+}
+.photo::before { content: "写真："; }
+
+/* ---------- はじめに ---------- */
+.intro .inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 80px);
+  align-items: center;
+}
+.intro .photo { aspect-ratio: 4 / 5; }
+.intro .lead {
+  font-family: var(--serif);
+  font-size: clamp(19px, 2.6vw, 23px);
+  line-height: 2;
+  color: var(--forest);
+}
+
+/* ---------- 畑のこれから（順序がある内容なので番号をつける） ---------- */
+.journey { background: var(--forest); color: var(--paper); }
+.journey h2 { color: var(--paper); }
+.journey ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid rgba(247,249,247,.3);
+}
+.journey li {
+  position: relative;
+  padding: 28px 20px 0 0;
+}
+.journey li::before {
+  content: "";
+  position: absolute;
+  top: -6px;
+  left: 0;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--forest);
+  border: 2px solid var(--paper);
+}
+.journey li.now::before { background: #B9CF6A; border-color: #B9CF6A; }
+.journey .when { font-size: 13px; color: #B8C7BD; display: block; }
+.journey h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  margin: 4px 0 8px;
+  font-weight: 700;
+}
+.journey li p { font-size: 14px; line-height: 1.8; color: #DCE5DF; }
+.journey .now-label {
+  display: inline-block;
+  font-size: 12px;
+  background: #B9CF6A;
+  color: var(--forest);
+  padding: 0 8px;
+  border-radius: 2px;
+  margin-left: 6px;
+  vertical-align: 2px;
+}
+
+/* ---------- 育てるもの ---------- */
+.crops ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px 20px;
+}
+.crops .photo { aspect-ratio: 1 / 1; margin-bottom: 12px; }
+.crops h3 {
+  font-family: var(--serif);
+  font-size: 19px;
+  margin: 0 0 2px;
+  color: var(--forest);
+}
+.crops li p { font-size: 14px; line-height: 1.7; margin: 0; }
+.crops .season { font-size: 13px; color: var(--moss); }
+.crops .note { font-size: 13px; color: #5d6a63; margin-top: 28px; }
+
+/* ---------- 畑の今（インスタ） ---------- */
+.now-insta { background: var(--mist); }
+.now-insta .inner {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.4fr);
+  gap: clamp(28px, 5vw, 64px);
+  align-items: center;
+}
+.insta-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.insta-grid .photo { aspect-ratio: 1 / 1; font-size: 12px; padding: 8px; }
+.button {
+  display: inline-block;
+  background: var(--forest);
+  color: var(--paper);
+  text-decoration: none;
+  font-weight: 700;
+  padding: 14px 28px;
+  border-radius: 999px;
+  margin-top: 8px;
+}
+.button:hover { background: var(--moss); }
+
+/* ---------- これからのこと（作り置き・直売） ---------- */
+.next .inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+.next article {
+  border: 1px solid var(--mist-deep);
+  border-radius: 4px;
+  padding: 28px;
+}
+.next h3 {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--forest);
+  margin: 0 0 8px;
+}
+.next .status {
+  display: inline-block;
+  font-size: 12px;
+  color: var(--soil);
+  border: 1px solid var(--soil);
+  border-radius: 2px;
+  padding: 0 8px;
+  margin-bottom: 12px;
+}
+.next p { font-size: 15px; margin: 0; }
+
+/* ---------- 場所・フッター ---------- */
+footer {
+  background: var(--ink);
+  color: #C9D3CD;
+  padding: 56px var(--gutter) 40px;
+  font-size: 14px;
+}
+footer .inner {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 24px;
+}
+footer .name {
+  font-family: var(--serif);
+  font-size: 20px;
+  color: var(--paper);
+  margin: 0 0 4px;
+}
+footer p { margin: 0; }
+footer nav a { margin-left: 20px; }
+footer small { display: block; margin-top: 32px; color: #8A968F; }
+
+/* ---------- スマホ ---------- */
+@media (max-width: 760px) {
+  .hero { grid-template-columns: 1fr; justify-items: end; align-content: center; gap: 32px; }
+  .hero-altitude { justify-self: start; }
+  .intro .inner, .now-insta .inner, .next .inner { grid-template-columns: 1fr; }
+  .intro .photo { aspect-ratio: 4 / 3; order: -1; }
+  .journey ol { grid-template-columns: 1fr; border-top: 0; border-left: 1px solid rgba(247,249,247,.3); margin-left: 6px; }
+  .journey li { padding: 0 0 28px 24px; }
+  .journey li::before { top: 8px; left: -7px; }
+  .crops ul { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px 14px; }
+  footer nav a { margin: 0 20px 0 0; }
+}
+
+/* ---------- サイト内ナビ（トップ画像の右上） ---------- */
+.site-nav {
+  position: absolute;
+  top: 20px;
+  right: var(--gutter);
+  display: flex;
+  gap: 20px;
+  font-size: 14px;
+  z-index: 1;
+}
+.site-nav a { text-decoration: none; color: var(--forest); }
+.site-nav a[aria-current="page"] { border-bottom: 2px solid var(--moss); }
+
+/* ---------- トップ：事業の入口 ---------- */
+.doors .inner {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.door {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  background: var(--paper);
+  border: 1px solid var(--mist-deep);
+  border-radius: 4px;
+  overflow: hidden;
+}
+a.door:hover { border-color: var(--moss); }
+div.door .go { color: var(--soil); font-weight: 500; }
+.door .photo { aspect-ratio: 16 / 9; border-radius: 0; }
+.door-body { padding: 24px 28px 28px; }
+.door h3 {
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--forest);
+  margin: 0 0 6px;
+}
+.door p { font-size: 15px; margin: 0 0 12px; }
+.door .go { font-weight: 700; color: var(--moss); font-size: 15px; }
+
+/* ---------- 作り置き：流れ（順番がある内容） ---------- */
+.steps {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 20px;
+}
+.steps li {
+  counter-increment: step;
+  border-top: 2px solid var(--forest);
+  padding-top: 14px;
+}
+.steps li::before {
+  content: counter(step);
+  font-family: var(--serif);
+  font-size: 28px;
+  color: var(--moss);
+  display: block;
+  line-height: 1.2;
+}
+.steps h3 { font-size: 17px; margin: 4px 0; color: var(--forest); }
+.steps p { font-size: 14px; line-height: 1.8; margin: 0; }
+
+/* ---------- 作り置き：料金・エリア ---------- */
+.facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0;
+  margin: 0;
+  border-top: 1px solid var(--mist-deep);
+}
+.facts div { padding: 20px 20px 20px 0; border-bottom: 1px solid var(--mist-deep); }
+.facts dt { font-size: 13px; color: var(--moss); }
+.facts dd {
+  margin: 4px 0 0;
+  font-family: var(--serif);
+  font-size: 22px;
+  color: var(--forest);
+}
+.facts dd small { display: block; font-family: var(--sans); font-size: 13px; color: #5d6a63; }
+
+/* ---------- よくある質問 ---------- */
+.faq details {
+  border-bottom: 1px solid var(--mist-deep);
+  padding: 18px 0;
+  max-width: 46em;
+}
+.faq summary {
+  cursor: pointer;
+  font-weight: 700;
+  color: var(--forest);
+  list-style-position: outside;
+}
+.faq details p { margin: 10px 0 0; font-size: 15px; }
+
+/* ---------- フッターの補助リンク ---------- */
+.footer-sub {
+  border-top: 1px solid #2E3A33;
+  margin-top: 32px;
+  padding-top: 20px;
+  align-items: center;
+}
+.footer-sub a { color: #C9D3CD; font-size: 13px; }
+.footer-sub small { margin: 0; }
+
+@media (max-width: 760px) {
+  .site-nav { gap: 14px; font-size: 13px; }
+  .doors .inner { grid-template-columns: 1fr; }
+  .steps { grid-template-columns: 1fr 1fr; gap: 24px 16px; }
+  .facts { grid-template-columns: 1fr; }
+  footer nav { display: flex; flex-wrap: wrap; gap: 8px 20px; }
+  footer nav a { margin: 0; }
+}
+
+/* ---------- 写真（images/ に置くと表示。無ければ仮置きのまま） ---------- */
+.photo { overflow: hidden; text-decoration: none; }
+.photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
