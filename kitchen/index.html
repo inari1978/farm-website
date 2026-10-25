@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/farm.css?v=20261025c">
+<link rel="stylesheet" href="../assets/farm.css?v=20261025e">
 </head>
 <body>
 
@@ -149,12 +149,34 @@
               <p class="error" id="re-email" hidden>メールアドレスの形式で入力してください。例：name@example.com</p>
             </div>
 
-            <div class="field">
-              <label for="r-area">伺う場所（市区町村まで）<span class="req">必須</span></label>
-              <input id="r-area" name="area" type="text" autocomplete="address-level2" required maxlength="50" placeholder="例：世田谷区、横浜市港北区">
-              <p class="hint left">対応エリアかどうかの確認に使います。番地は、予約の確定後に伺います。</p>
-              <p class="error" id="re-area" hidden>伺う場所を入力してください。</p>
-            </div>
+            <fieldset class="field address">
+              <legend>伺う住所<span class="req">必須</span></legend>
+              <div class="addr-row">
+                <div class="addr-postal">
+                  <label for="r-postal" class="sub">郵便番号<span class="opt">任意</span></label>
+                  <input id="r-postal" name="postal" type="text" autocomplete="postal-code" inputmode="numeric" maxlength="8" placeholder="例：154-0001">
+                  <p class="error" id="re-postal" hidden>郵便番号は7けたの数字で入力してください。例：154-0001</p>
+                </div>
+                <div class="addr-pref">
+                  <label for="r-pref" class="sub">都道府県</label>
+                  <select id="r-pref" name="pref" autocomplete="address-level1" required>
+                    <option value="">選択</option>
+                    <option value="東京都">東京都</option>
+                    <option value="神奈川県">神奈川県</option>
+                  </select>
+                  <p class="error" id="re-pref" hidden>都道府県を選んでください。</p>
+                </div>
+              </div>
+              <label for="r-city" class="sub">市区町村</label>
+              <input id="r-city" name="city" type="text" autocomplete="address-level2" required maxlength="30" placeholder="例：世田谷区">
+              <p class="error" id="re-city" hidden>市区町村を入力してください。</p>
+              <label for="r-line1" class="sub">町名・番地</label>
+              <input id="r-line1" name="line1" type="text" autocomplete="address-line1" required maxlength="60" placeholder="例：池尻1-2-3">
+              <p class="error" id="re-line1" hidden>町名・番地を入力してください。</p>
+              <label for="r-line2" class="sub">建物名・部屋番号<span class="opt">任意</span></label>
+              <input id="r-line2" name="line2" type="text" autocomplete="address-line2" maxlength="60" placeholder="例：〇〇マンション 101">
+              <p class="hint left">対応エリアは東京都・神奈川県です。お使いの端末に保存した住所を、自動で入れられます。</p>
+            </fieldset>
 
             <div class="field">
               <label for="r-note">アレルギー・苦手な食材・ご要望<span class="opt">任意</span></label>
@@ -208,6 +230,6 @@
   </div>
 </footer>
 
-<script src="../assets/reserve.js?v=20261025c"></script>
+<script src="../assets/reserve.js?v=20261025f"></script>
 </body>
 </html>

@@ -65,7 +65,7 @@ async function fetchSlots(from, to) {
   return data.slots;
 }
 
-// 見本の空き状況：土日の午前・午後。日付から決まった並びで、いくつかを満席にする
+// 見本の空き状況：土日の午前（9:00〜12:00）と午後（14:00〜17:00。移動と休憩のため2時間あける）。日付から決まった並びで、いくつかを満席にする
 function demoSlots(from, to) {
   const out = [];
   for (let d = new Date(from + "T00:00:00"); ymd(d) <= to; d.setDate(d.getDate() + 1)) {
@@ -74,7 +74,7 @@ function demoSlots(from, to) {
     const date = ymd(d);
     const isFullDay = key % 4 === 2;
     out.push({ id: `${date}_0900`, date, start: "09:00", end: "12:00", open: !isFullDay && key % 3 !== 0 });
-    out.push({ id: `${date}_1300`, date, start: "13:00", end: "16:00", open: !isFullDay && key % 5 !== 0 });
+    out.push({ id: `${date}_1400`, date, start: "14:00", end: "17:00", open: !isFullDay && key % 5 !== 0 });
   }
   return out;
 }
@@ -177,9 +177,19 @@ const submit = form.querySelector(".submit");
 const rules = [
   { id: "name", ok: () => f["name"].value.trim() !== "" },
   { id: "email", ok: () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f["email"].value.trim()) },
-  { id: "area", ok: () => f["area"].value.trim() !== "" },
+  { id: "postal", ok: () => f["postal"].value.trim() === "" || /^\d{3}-?\d{4}$/.test(toHalf(f["postal"].value.trim())) },
+  { id: "pref", ok: () => f["pref"].value !== "" },
+  { id: "city", ok: () => f["city"].value.trim() !== "" },
+  { id: "line1", ok: () => f["line1"].value.trim() !== "" },
   { id: "agree", ok: () => f["agree"].checked },
 ];
+
+// 全角の数字やハイフンで入力されても受け付ける
+const toHalf = (v) => v.replace(/[０-９]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0xfee0)).replace(/[－ー‐−]/g, "-");
+const formatPostal = (v) => {
+  const digits = toHalf(v.trim()).replace(/-/g, "");
+  return digits ? `${digits.slice(0, 3)}-${digits.slice(3)}` : "";
+};
 
 function showError(id, on) {
   $("re-" + id).hidden = !on;
@@ -197,10 +207,13 @@ function validate() {
   return first === null;
 }
 
-form.addEventListener("input", (e) => {
+// select は input ではなく change で知らせるので、両方で消す
+const clearOnFix = (e) => {
   const r = rules.find((x) => x.id === e.target.name);
   if (r && r.ok()) showError(r.id, false);
-});
+};
+form.addEventListener("input", clearOnFix);
+form.addEventListener("change", clearOnFix);
 
 // 見本では、最初に◯になっている枠を「ほかの人が先に取った」枠として扱い、
 // 満席だったときの表示を確かめられるようにする
@@ -226,7 +239,9 @@ form.addEventListener("submit", async (e) => {
     slotId: pickedSlot.id,
     name: f["name"].value.trim(),
     email: f["email"].value.trim(),
-    area: f["area"].value.trim(),
+    postal: formatPostal(f["postal"].value),
+    address: f["pref"].value + f["city"].value.trim() + f["line1"].value.trim(),
+    building: f["line2"].value.trim(),
     note: f["note"].value.trim(),
   };
   const isBot = f["website"].value !== "";
