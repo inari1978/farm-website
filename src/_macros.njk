@@ -2,7 +2,7 @@
 
 {% macro nav(page, root, kitchen) -%}
 <nav class="site-nav" aria-label="サイト内のリンク"><a href="{{ root }}farm/"{% if page == 'farm' %} aria-current="page"{% endif %}>長野の畑</a>
-{%- if kitchen.published or page == 'kitchen' %}<a href="{{ root }}kitchen/"{% if page == 'kitchen' %} aria-current="page"{% endif %}>作り置き</a>{% endif %}</nav>
+{%- if kitchen.published or page == 'kitchen' %}<a href="{{ root }}kitchen/"{% if page == 'kitchen' %} aria-current="page"{% endif %}>作り置き</a><a class="nav-cta" href="{{ '#reserve' if page == 'kitchen' else root + 'kitchen/#reserve' }}">予約する</a>{% endif %}</nav>
 {%- endmacro %}
 
 {# 写真。未設定・読み込み失敗のときは label を仮置きの文字として出す #}

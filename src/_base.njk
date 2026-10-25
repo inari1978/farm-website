@@ -41,6 +41,9 @@
       {%- if kitchen.published or page == 'kitchen' %}
       <a href="{{ root }}kitchen/"{% if page == 'kitchen' %} aria-current="page"{% endif %}>作り置き</a>
       {%- endif %}
+      {%- if kitchen.published %}
+      <a class="nav-cta" href="{{ root }}kitchen/#reserve">予約する</a>
+      {%- endif %}
       <a href="{{ site.instagram_url | safeUrl }}" target="_blank" rel="noopener">インスタ</a>
       <a href="{{ root }}contact/"{% if page == 'contact' %} aria-current="page"{% endif %}>お問い合わせ</a>
     </nav>

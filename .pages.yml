@@ -271,19 +271,3 @@ content:
           - name: answer
             label: 答え
             type: text
-      - name: apply
-        label: 申し込みの欄
-        type: object
-        fields:
-          - name: status
-            label: 受付の状況
-            description: 「受付中」にすると、お問い合わせページへのボタンが出ます
-            type: select
-            options:
-              values: [準備中, 受付中]
-          - name: title
-            label: 見出し
-            type: string
-          - name: text
-            label: 説明
-            type: text

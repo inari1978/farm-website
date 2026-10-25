@@ -67,18 +67,125 @@
     </div>
   </section>
 
-  <section class="next" aria-label="申し込み">
-    <div class="inner" style="grid-template-columns:1fr">
-      <article>
-        <span class="status">{{ c.apply.status }}</span>
-        <h3>{{ c.apply.title | heading }}</h3>
-        <p>{{ c.apply.text }}</p>
-        {%- if c.apply.status == '受付中' %}
-        <a class="button" href="../contact/">お問い合わせから申し込む</a>
-        {%- endif %}
-      </article>
+  <section class="reserve" id="reserve" aria-labelledby="reserve-title">
+    <div class="inner">
+      <h2 id="reserve-title">予約する</h2>
+      <p class="reserve-lead">◯の日を選ぶと、<wbr>空いている時間が出ます。<br>お申し込みは<strong>仮予約</strong>です。<wbr>内容を確認したうえで、<wbr>確定のメールを<wbr>お送りします。</p>
+
+      <!-- 送信先が未設定のあいだだけ表示する（assets/reserve.js が出し分け） -->
+      <p class="demo-note" hidden>予約は準備中です。いまの空き状況は見本で、申し込んでも届きません。</p>
+
+      <div class="reserve-grid">
+        <!-- ① 日にちを選ぶ -->
+        <div class="cal" aria-label="予約カレンダー">
+          <div class="cal-head">
+            <button type="button" class="cal-nav" id="cal-prev" aria-label="前の月">‹</button>
+            <h3 id="cal-title" aria-live="polite">　</h3>
+            <button type="button" class="cal-nav" id="cal-next" aria-label="次の月">›</button>
+          </div>
+          <table class="cal-table">
+            <thead>
+              <tr><th scope="col" class="sun">日</th><th scope="col">月</th><th scope="col">火</th><th scope="col">水</th><th scope="col">木</th><th scope="col">金</th><th scope="col" class="sat">土</th></tr>
+            </thead>
+            <tbody id="cal-body"></tbody>
+          </table>
+          <p class="cal-legend"><span class="mark open">◯</span>空きあり　<span class="mark full">×</span>満席　<span class="mark none">－</span>受付なし</p>
+          <p class="cal-status" id="cal-status" role="status"></p>
+        </div>
+
+        <!-- ② 時間を選ぶ → ③ 入力する -->
+        <div class="pick">
+          <div id="step-hint" class="step-hint">
+            <p class="taken-note" id="taken-note-day" role="alert" hidden>申し訳ありません。選んだ日は、ほかの方の申し込みで満席になりました。別の日をお選びください。</p>
+            <p>カレンダーから、◯の日を選んでください。</p>
+          </div>
+
+          <div id="step-time" hidden>
+            <h3 class="pick-title" id="time-title" tabindex="-1"></h3>
+            <p class="taken-note" id="taken-note" role="alert" hidden>申し訳ありません。選んだ時間は、ほかの方の申し込みで先ほど埋まりました。別の時間をお選びください。</p>
+            <div class="slots" id="slots"></div>
+          </div>
+
+          <form id="reserve-form" class="form" novalidate hidden>
+            <p class="picked-slot" id="picked" tabindex="-1"></p>
+
+            <div class="field">
+              <label for="r-name">お名前<span class="req">必須</span></label>
+              <input id="r-name" name="name" type="text" autocomplete="name" required maxlength="50">
+              <p class="error" id="re-name" hidden>お名前を入力してください。</p>
+            </div>
+
+            <div class="field">
+              <label for="r-email">メールアドレス<span class="req">必須</span></label>
+              <input id="r-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="100" placeholder="例：name@example.com">
+              <p class="error" id="re-email" hidden>メールアドレスの形式で入力してください。例：name@example.com</p>
+            </div>
+
+            <fieldset class="field address">
+              <legend>伺う住所<span class="req">必須</span></legend>
+              <div class="addr-row">
+                <div class="addr-postal">
+                  <label for="r-postal" class="sub">郵便番号<span class="opt">任意</span></label>
+                  <input id="r-postal" name="postal" type="text" autocomplete="postal-code" inputmode="numeric" maxlength="8" placeholder="例：154-0001">
+                  <p class="error" id="re-postal" hidden>郵便番号は7けたの数字で入力してください。例：154-0001</p>
+                </div>
+                <div class="addr-pref">
+                  <label for="r-pref" class="sub">都道府県</label>
+                  <select id="r-pref" name="pref" autocomplete="address-level1" required>
+                    <option value="">選択</option>
+                    <option value="東京都">東京都</option>
+                    <option value="神奈川県">神奈川県</option>
+                  </select>
+                  <p class="error" id="re-pref" hidden>都道府県を選んでください。</p>
+                </div>
+              </div>
+              <label for="r-city" class="sub">市区町村</label>
+              <input id="r-city" name="city" type="text" autocomplete="address-level2" required maxlength="30" placeholder="例：世田谷区">
+              <p class="error" id="re-city" hidden>市区町村を入力してください。</p>
+              <label for="r-line1" class="sub">町名・番地</label>
+              <input id="r-line1" name="line1" type="text" autocomplete="address-line1" required maxlength="60" placeholder="例：池尻1-2-3">
+              <p class="error" id="re-line1" hidden>町名・番地を入力してください。</p>
+              <label for="r-line2" class="sub">建物名・部屋番号<span class="opt">任意</span></label>
+              <input id="r-line2" name="line2" type="text" autocomplete="address-line2" maxlength="60" placeholder="例：〇〇マンション 101">
+              <p class="hint left">対応エリアは東京都・神奈川県です。お使いの端末に保存した住所を、自動で入れられます。</p>
+            </fieldset>
+
+            <div class="field">
+              <label for="r-note">アレルギー・苦手な食材・ご要望<span class="opt">任意</span></label>
+              <textarea id="r-note" name="note" rows="4" maxlength="1000" placeholder="例：えびアレルギーがあります。子ども向けに薄味だとうれしいです。"></textarea>
+            </div>
+
+            <div class="trap" aria-hidden="true">
+              <label for="r-website">この欄は空のままにしてください</label>
+              <input id="r-website" name="website" type="text" tabindex="-1" autocomplete="off">
+            </div>
+
+            <div class="field privacy">
+              <label class="check"><input type="checkbox" name="agree" id="r-agree" required><span><a href="../contact/#privacy" target="_blank" rel="noopener">個人情報の取り扱い</a>に同意する</span></label>
+              <p class="error" id="re-agree" hidden>申し込むには、同意にチェックを入れてください。</p>
+            </div>
+
+            <button class="button submit" type="submit">この内容で仮予約する</button>
+            <button class="text-button" type="button" id="back-to-time">時間を選び直す</button>
+            <p class="error form-error" id="re-send" role="alert" hidden>申し込みを送れませんでした。時間をおいてもう一度お試しいただくか、お問い合わせフォームからご連絡ください。</p>
+          </form>
+
+          <div class="done" id="reserve-done" tabindex="-1" hidden>
+            <h3 class="pick-title">仮予約を受け付けました</h3>
+            <p class="picked-slot" id="done-picked"></p>
+            <p>入力いただいたメールアドレスに、受付確認のメールをお送りしました。<br>内容を確認したうえで、確定のメールをお送りします。今しばらくお待ちください。</p>
+            <p class="demo-note" hidden>※準備中のため、実際には申し込まれていません。</p>
+          </div>
+        </div>
+      </div>
     </div>
   </section>
 
 </main>
+
+<!-- スマホで、予約欄より上を見ているあいだだけ画面の下に出す（assets/reserve.js が出し分け） -->
+<a class="sticky-cta" id="sticky-cta" href="#reserve" hidden>空き状況を見て予約する</a>
+{% endblock %}
+{% block scripts %}
+<script src="../assets/reserve.js?v={{ version }}"></script>
 {% endblock %}
