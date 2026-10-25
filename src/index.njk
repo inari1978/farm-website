@@ -1,0 +1,66 @@
+{% extends "_base.njk" %}
+{% import "_macros.njk" as m %}
+{% set c = top %}
+{% block body %}
+
+<header class="hero">
+  <a class="hero-site" href="./">DiDiFarm</a>
+  {{ m.nav(page, root, kitchen) }}
+
+  <!-- 等高線：山あいの畑らしさを出す飾り -->
+  <svg class="contour" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2">
+    <path opacity=".10" d="M0 520 C200 470 330 380 520 360 S860 300 1200 330"/>
+    <path opacity=".14" d="M0 540 C220 500 360 420 540 400 S880 350 1200 370"/>
+    <path opacity=".18" d="M0 560 C240 530 390 460 560 440 S900 400 1200 410"/>
+    <path opacity=".22" d="M0 578 C260 556 420 500 580 482 S920 448 1200 452"/>
+    <path opacity=".10" d="M0 300 C160 280 260 210 420 200 S700 230 860 170 S1100 120 1200 130"/>
+    <path opacity=".13" d="M0 330 C180 310 280 250 440 240 S720 270 880 215 S1110 170 1200 180"/>
+    <path opacity=".16" d="M0 362 C200 345 300 292 460 282 S740 310 900 262 S1120 222 1200 230"/>
+  </svg>
+
+  {{ m.heroText(c.hero) }}
+</header>
+
+<main>
+
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="inner">
+      {{ m.photo(c.intro.photo, 'DiDiFarmの代表', '本人の写真', root) }}
+      <div>
+        <h2 id="intro-title">はじめまして</h2>
+        <p class="lead">{{ c.intro.lead }}</p>
+        {{ c.intro.body | paras }}
+      </div>
+    </div>
+  </section>
+
+  <section class="doors" aria-label="畑と作り置き">
+    <div class="inner">
+      <a class="door" href="farm/">
+        {{ m.photo(c.farm_card.photo, '長野の畑の風景', '畑の風景', root) }}
+        <div class="door-body">
+          <h3>長野の畑</h3>
+          <p>{{ c.farm_card.text }}</p>
+          <span class="go">畑のページを見る</span>
+        </div>
+      </a>
+      {%- set doorTag = 'a' if kitchen.published else 'div' %}
+      <{{ doorTag }} class="door"{% if kitchen.published %} href="kitchen/"{% endif %}>
+        {{ m.photo(c.kitchen_card.photo, '畑の野菜でつくった作り置き', '作り置きの料理', root) }}
+        <div class="door-body">
+          <h3>畑の野菜で、<wbr>作り置き</h3>
+          <p>{{ c.kitchen_card.text }}</p>
+          {%- if kitchen.published %}
+          <span class="go">作り置きのページを見る</span>
+          {%- else %}
+          <span class="go">準備中です。始まったらインスタでお知らせします</span>
+          {%- endif %}
+        </div>
+      </{{ doorTag }}>
+    </div>
+  </section>
+
+  {{ m.insta(c.insta, site, 3, root) }}
+
+</main>
+{% endblock %}

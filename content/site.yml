@@ -1,0 +1,6 @@
+# 全ページ共通。編集画面（Pages CMS）の「サイト共通」から編集する
+instagram_url: https://www.instagram.com/
+footer_area: 畑：長野県〇〇市　作り置き：東京・神奈川
+ogp_image: images/ogp.jpg
+# インスタの写真。トップは最初の3枚、畑は最初の6枚を使う。空のあいだは仮置きの枠を出す
+insta_photos: []

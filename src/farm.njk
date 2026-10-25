@@ -1,0 +1,90 @@
+{% extends "_base.njk" %}
+{% import "_macros.njk" as m %}
+{% set c = farm %}
+{% block body %}
+
+<header class="hero">
+  <a class="hero-site" href="../">DiDiFarm</a>
+  {{ m.nav(page, root, kitchen) }}
+
+  <!-- 等高線：山あいの畑らしさを出す飾り -->
+  <svg class="contour" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2">
+    <path opacity=".10" d="M0 520 C200 470 330 380 520 360 S860 300 1200 330"/>
+    <path opacity=".14" d="M0 540 C220 500 360 420 540 400 S880 350 1200 370"/>
+    <path opacity=".18" d="M0 560 C240 530 390 460 560 440 S900 400 1200 410"/>
+    <path opacity=".22" d="M0 578 C260 556 420 500 580 482 S920 448 1200 452"/>
+    <path opacity=".10" d="M0 300 C160 280 260 210 420 200 S700 230 860 170 S1100 120 1200 130"/>
+    <path opacity=".13" d="M0 330 C180 310 280 250 440 240 S720 270 880 215 S1110 170 1200 180"/>
+    <path opacity=".16" d="M0 362 C200 345 300 292 460 282 S740 310 900 262 S1120 222 1200 230"/>
+    <path opacity=".08" d="M620 120 C700 70 820 60 900 100 S1000 190 900 210 S700 200 620 120Z"/>
+    <path opacity=".08" d="M680 125 C730 95 810 90 860 115 S920 170 860 182 S730 175 680 125Z"/>
+  </svg>
+
+  {{ m.heroText(c.hero) }}
+</header>
+
+<main>
+
+  <section class="intro" aria-labelledby="intro-title">
+    <div class="inner">
+      {{ m.photo(c.intro.photo, '畑に立つ代表', '畑に立つ本人', root) }}
+      <div>
+        <h2 id="intro-title">はじめに</h2>
+        <p class="lead">{{ c.intro.lead }}</p>
+        {{ c.intro.body | paras }}
+      </div>
+    </div>
+  </section>
+
+  <section class="journey" aria-labelledby="journey-title">
+    <div class="inner">
+      <h2 id="journey-title">畑のこれから</h2>
+      <ol>
+        {%- for item in c.journey %}
+        <li{% if item.now %} class="now"{% endif %}>
+          <span class="when">{{ item.when }}</span>
+          <h3>{{ item.title }}{% if item.now %}<span class="now-label">いまここ</span>{% endif %}</h3>
+          <p>{{ item.text }}</p>
+        </li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="crops" aria-labelledby="crops-title">
+    <div class="inner">
+      <h2 id="crops-title">育てる予定の<wbr>野菜</h2>
+      <ul>
+        {%- for crop in c.crops %}
+        <li>
+          {{ m.photo(crop.photo, crop.name, crop.name, root) }}
+          <h3>{{ crop.name }}</h3>
+          <p class="season">{{ crop.season }}</p>
+          <p>{{ crop.text }}</p>
+        </li>
+        {%- endfor %}
+      </ul>
+      {%- if c.crops_note %}
+      <p class="note">{{ c.crops_note }}</p>
+      {%- endif %}
+    </div>
+  </section>
+
+  {{ m.insta(c.insta, site, 6, root) }}
+
+  {%- if c.next and c.next.length %}
+  <section class="next" aria-label="これからはじめること">
+    <div class="inner">
+      {%- for item in c.next %}
+      <article>
+        <span class="status">{{ item.status }}</span>
+        <h3>{{ item.title | heading }}</h3>
+        <p>{{ item.text }}{% if item.kitchen_link and kitchen.published %} <a href="../kitchen/">くわしく見る</a>{% endif %}</p>
+      </article>
+      {%- endfor %}
+    </div>
+  </section>
+  {%- endif %}
+
+</main>
+{% endblock %}
