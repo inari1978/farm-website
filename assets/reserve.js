@@ -65,7 +65,7 @@ async function fetchSlots(from, to) {
   return data.slots;
 }
 
-// 見本の空き状況：土日の午前・午後。日付から決まった並びで、いくつかを満席にする
+// 見本の空き状況：土日の午前（9:00〜12:00）と午後（14:00〜17:00。移動と休憩のため2時間あける）。日付から決まった並びで、いくつかを満席にする
 function demoSlots(from, to) {
   const out = [];
   for (let d = new Date(from + "T00:00:00"); ymd(d) <= to; d.setDate(d.getDate() + 1)) {
@@ -74,7 +74,7 @@ function demoSlots(from, to) {
     const date = ymd(d);
     const isFullDay = key % 4 === 2;
     out.push({ id: `${date}_0900`, date, start: "09:00", end: "12:00", open: !isFullDay && key % 3 !== 0 });
-    out.push({ id: `${date}_1300`, date, start: "13:00", end: "16:00", open: !isFullDay && key % 5 !== 0 });
+    out.push({ id: `${date}_1400`, date, start: "14:00", end: "17:00", open: !isFullDay && key % 5 !== 0 });
   }
   return out;
 }
