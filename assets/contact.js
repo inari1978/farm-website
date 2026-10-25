@@ -13,6 +13,9 @@ if (isDemo) {
   document.querySelectorAll(".demo-note").forEach((el) => { el.hidden = false; });
 }
 
+// 予約画面などから「個人情報の取り扱い」へのリンクで来たときは、説明を開いておく
+if (location.hash === "#privacy") document.querySelector("#privacy details").open = true;
+
 // 文字数の表示
 const message = document.getElementById("f-message");
 const count = document.getElementById("count");
