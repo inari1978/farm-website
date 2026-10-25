@@ -39,7 +39,7 @@ components:
     fields:
       - name: photo
         label: 写真（縦長がおすすめ）
-        description: スマホで撮った写真をそのまま選べます。公開のときに自動で縮小します
+        description: 3MBまで。大きいときは squoosh.app などで横幅1600pxに縮小してから選んでください
         type: image
       - name: lead
         label: 最初の一文（大きめの文字）
@@ -92,6 +92,7 @@ content:
         fields:
           - name: photo
             label: 写真
+            description: 3MBまで。大きいときは squoosh.app などで横幅1600pxに縮小してから選んでください
             type: image
             required: true
           - name: alt
@@ -118,6 +119,7 @@ content:
         fields:
           - name: photo
             label: 写真（横長）
+            description: 3MBまで。大きいときは squoosh.app などで横幅1600pxに縮小してから選んでください
             type: image
           - name: text
             label: 説明
@@ -128,6 +130,7 @@ content:
         fields:
           - name: photo
             label: 写真（横長）
+            description: 3MBまで。大きいときは squoosh.app などで横幅1600pxに縮小してから選んでください
             type: image
           - name: text
             label: 説明
@@ -185,6 +188,7 @@ content:
             type: text
           - name: photo
             label: 写真（正方形がおすすめ）
+            description: 3MBまで。大きいときは squoosh.app などで横幅1600pxに縮小してから選んでください
             type: image
       - name: crops_note
         label: 野菜の一覧の下の注記
