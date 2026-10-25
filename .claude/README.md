@@ -2,7 +2,9 @@
 
 `inari1978/manabidrill` の `.claude/` から、Webサイト制作に流用できるものだけをコピーした。
 中身はまだ manabidrill 固有の記述（IndexedDB、問題形式プラグイン等）を含む。
-技術構成が決まった段階で畑サイト向けに書き換える。
+
+**このサイトの技術構成（決定）**：React も TypeScript も使っていない。ページは Nunjucks のひな形（`src/`）、文字は YAML（`content/`）、動きは素の JavaScript（`assets/*.js`）、組み立ては Node.js（`scripts/`）。
+そのため `rules/coding-typescript.md` と `rules/component-react.md` は、このサイトには当てはまらない（対象のファイルがないので読み込まれない）。レビュー役の判断基準も React 前提の部分は読み替える。
 
 | ファイル | 用途 |
 |---|---|
