@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/farm.css?v=20261025e">
+<link rel="stylesheet" href="../assets/farm.css?v=20261025g">
 </head>
 <body>
 
@@ -26,7 +26,7 @@
 
 <header class="hero">
   <a class="hero-site" href="../">DiDiFarm</a>
-  <nav class="site-nav" aria-label="サイト内のリンク"><a href="../farm/">長野の畑</a><a href="./" aria-current="page">作り置き</a></nav>
+  <nav class="site-nav" aria-label="サイト内のリンク"><a href="../farm/">長野の畑</a><a href="./" aria-current="page">作り置き</a><a class="nav-cta" href="#reserve">予約する</a></nav>
 
   <svg class="contour" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2">
     <path opacity=".10" d="M0 520 C200 470 330 380 520 360 S860 300 1200 330"/>
@@ -211,6 +211,9 @@
 
 </main>
 
+<!-- スマホで、予約欄より上を見ているあいだだけ画面の下に出す（assets/reserve.js が出し分け） -->
+<a class="sticky-cta" id="sticky-cta" href="#reserve" hidden>空き状況を見て予約する</a>
+
 <footer>
   <div class="inner">
     <div>
@@ -230,6 +233,6 @@
   </div>
 </footer>
 
-<script src="../assets/reserve.js?v=20261025f"></script>
+<script src="../assets/reserve.js?v=20261025g"></script>
 </body>
 </html>

@@ -725,3 +725,38 @@ button.day.picked .mark { color: var(--paper); }
   height: 50px;
 }
 .form select:focus-visible { outline: 3px solid rgba(95,125,67,.35); border-color: var(--moss); }
+
+/* ---------- 予約へのボタン ---------- */
+.site-nav { align-items: center; }
+.site-nav a.nav-cta {
+  background: var(--forest);
+  color: var(--paper);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-weight: 700;
+}
+.site-nav a.nav-cta:hover { background: var(--moss); }
+
+/* スマホだけ、画面の下に固定して出す */
+.sticky-cta { display: none; }
+@media (max-width: 760px) {
+  .sticky-cta:not([hidden]) {
+    display: block;
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom));
+    z-index: 10;
+    text-align: center;
+    text-decoration: none;
+    background: var(--forest);
+    color: var(--paper);
+    font-weight: 700;
+    padding: 15px;
+    border-radius: 999px;
+    box-shadow: 0 6px 18px rgba(24, 34, 29, .25);
+  }
+  .site-nav a.nav-cta { padding: 5px 12px; }
+}
+/* 予約欄へ移動したとき、見出しが画面の端に貼りつかないように */
+#reserve { scroll-margin-top: 8px; }
