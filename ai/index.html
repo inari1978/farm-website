@@ -42,6 +42,8 @@
   a:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
   .draft-note { background: #6B5340; color: #fff; font-size: 13px; text-align: center; padding: 6px var(--gutter); }
   .inner { max-width: 1040px; margin: 0 auto; }
+  /* 見出しは単語の途中で改行しない（Chrome・Edgeは文節、ほかは <wbr> の位置で折り返す） */
+  h1, h2, h3 { word-break: keep-all; overflow-wrap: anywhere; word-break: auto-phrase; text-wrap: balance; }
 
   .top-bar { padding: 18px var(--gutter); border-bottom: 1px solid var(--line); }
   .top-bar .inner { display: flex; justify-content: space-between; align-items: center; gap: 16px; }
@@ -57,6 +59,7 @@
     margin: 0 0 24px;
     max-width: 18em;
   }
+  .hero h1 .phrase { display: inline-block; } /* 意味のかたまりの途中では改行しない */
   .hero p { color: var(--sub); max-width: 34em; margin: 0 0 28px; }
   .button {
     display: inline-block;
@@ -127,7 +130,7 @@
 <main>
   <section class="hero">
     <div class="inner">
-      <h1>AI・DX・RPA、何から始めればいいか。一緒に整理します。</h1>
+      <h1><span class="phrase">AI・DX・RPA、</span><span class="phrase">何から始めればいいか。</span><span class="phrase">一緒に整理します。</span></h1>
       <p>「効率化したいけれど、何を使えばいいか分からない」という段階からご相談ください。お困りごとを整理し、合うツールや会社をご紹介します。</p>
       <a class="button" href="#contact">相談する</a>
     </div>
@@ -135,7 +138,7 @@
 
   <section class="block tint" aria-labelledby="worry-title">
     <div class="inner">
-      <h2 id="worry-title">こんなお困りごとはありませんか</h2>
+      <h2 id="worry-title">こんなお困りごとは<wbr>ありませんか</h2>
       <ul class="worries">
         <li>毎月同じ数字を、手で入力し直している</li>
         <li>紙やFAXのやりとりが、まだ多い</li>
@@ -147,10 +150,10 @@
 
   <section class="block" aria-labelledby="offer-title">
     <div class="inner">
-      <h2 id="offer-title">お手伝いできること</h2>
+      <h2 id="offer-title">お手伝い<wbr>できること</h2>
       <div class="offer">
         <div><h3>困りごとの整理</h3><p>どの作業に、どれだけ時間がかかっているかを一緒に洗い出します。</p></div>
-        <div><h3>ツール・会社のご紹介</h3><p>予算と目的に合うツールや、導入を任せられる会社をご紹介します。</p></div>
+        <div><h3>ツール・会社の<wbr>ご紹介</h3><p>予算と目的に合うツールや、導入を任せられる会社をご紹介します。</p></div>
         <div><h3>導入後のご相談</h3><p>使い始めてからの「思っていたのと違う」にも相談に乗ります。</p></div>
       </div>
     </div>
@@ -180,7 +183,7 @@
 
   <section class="block tint" aria-labelledby="profile-title">
     <div class="inner">
-      <h2 id="profile-title">相談を受ける人</h2>
+      <h2 id="profile-title">相談を<wbr>受ける人</h2>
       <div class="profile">
         <div class="photo"><img src="../images/ai-profile.jpg" alt="相談を受ける代表" loading="lazy" onerror="this.remove()">写真</div>
         <div>

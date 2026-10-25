@@ -132,6 +132,16 @@ h2 {
 }
 p { margin: 0 0 1.2em; max-width: var(--measure); }
 
+/* 見出しは単語の途中で改行しない。
+   対応ブラウザ（Chrome・Edge）は文節で、それ以外は <wbr> の位置で折り返す */
+h2, h3, main h1 {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  word-break: auto-phrase;
+  text-wrap: balance;
+}
+
+
 /* 写真の仮置き */
 .photo {
   position: relative;
