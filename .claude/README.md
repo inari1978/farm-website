@@ -21,3 +21,18 @@
 |---|---|
 | `skills/frontend-design` | テンプレ感のない見た目づくり（配色・書体・レイアウトの方向性） |
 | `skills/webapp-testing` | Playwright でページを実際に開いて表示確認・スクリーンショット |
+
+## レビュー役・デザイン（inari1978/ClaudeCode-skills から移植）
+
+出典: https://github.com/inari1978/ClaudeCode-skills （コミット a2852cb）。参照パスを保つため番号付きのフォルダ名のまま置いている。
+
+| ファイル | 用途 |
+|---|---|
+| `skills/1610-security-audit` | コード全体のセキュリティ監査（「セキュリティ監査して」で起動）。方法論は Cloudflare security-audit-skill（MIT、`references/LICENSE`） |
+| `agents/security-reviewer.md` + `personas/security/CLAUDE.md` | 特定ページ・コードのセキュリティ観点レビュー役 |
+| `agents/designer-reviewer.md` + `personas/designer/CLAUDE.md` | UI/UX・アクセシビリティ観点のレビュー役 |
+| `agents/customer-reviewer.md` + `personas/customer/CLAUDE.md` | サイト訪問者の目で、伝わるか・信頼できるか・問い合わせまで進めるかを見るレビュー役。元は IT 案件の顧客向けだったため、本サイトの訪問者（畑・作り置き・AI相談）向けに書き換えた |
+| `skills/9110-theme-factory` | 配色・書体のテーマ見本10種（botanical-garden、forest-canopy など）。色決めのたたき台に使う |
+| `skills/9020-canvas-design` | チラシ・SNSシェア画像（OGP）などを PNG/PDF で作る（`canvas-fonts/` 同梱） |
+
+持ってこなかったもの: `9050-frontend-design`・`9130-webapp-testing`（上の公開スキルと同一内容）、`9010-brand-guidelines`（Anthropic 社のブランド用）、PM・設計書・構成図・Office系スキル、PM／PMO／プリセールス／QA／SE／テックリードのレビュー役、コーディング規約とコミット前チェック（TypeScript／Python 前提で静的サイトには合わない）。
