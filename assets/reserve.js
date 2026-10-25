@@ -282,3 +282,17 @@ form.addEventListener("submit", async (e) => {
 
 show("hint");
 loadSlots();
+
+// ---------- 予約欄へのボタン（スマホの画面下） ----------
+// 予約欄かフッターが見えているあいだは隠す。予約欄より上を見ているときだけ出す
+const sticky = $("sticky-cta");
+if (sticky && "IntersectionObserver" in window) {
+  const watched = [$("reserve"), document.querySelector("footer")];
+  const visible = new Set();
+  const io = new IntersectionObserver((entries) => {
+    for (const en of entries) en.isIntersecting ? visible.add(en.target) : visible.delete(en.target);
+    const reserveTop = $("reserve").getBoundingClientRect().top;
+    sticky.hidden = visible.size > 0 || reserveTop < 0;
+  });
+  watched.forEach((el) => io.observe(el));
+}
