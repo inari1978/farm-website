@@ -79,6 +79,7 @@ a:focus-visible, button:focus-visible {
   color: var(--forest);
   font-size: 14px;
   line-height: 1.6;
+  max-width: none; /* 本文用の行幅制限（p の 34em）を外す */
 }
 .hero-altitude strong {
   display: block;
@@ -87,6 +88,7 @@ a:focus-visible, button:focus-visible {
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0;
+  white-space: nowrap; /* 「東京 ⇄ 長野」などを途中で折り返さない */
 }
 .hero-copy {
   position: relative;
