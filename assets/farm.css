@@ -703,3 +703,25 @@ button.day.picked .mark { color: var(--paper); }
   .cal { padding: 14px 10px; }
   .day .num { font-size: 12px; }
 }
+
+/* ---------- 予約：住所の入力欄 ---------- */
+.form label.sub {
+  font-weight: 500;
+  font-size: 14px;
+  color: var(--ink);
+  margin: 14px 0 6px;
+}
+.form .address legend + .addr-row label.sub { margin-top: 4px; }
+.addr-row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 12px; }
+.form select {
+  width: 100%;
+  font: inherit;
+  font-size: 16px;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid #B9C7BF;
+  border-radius: 4px;
+  padding: 12px 14px;
+  height: 50px;
+}
+.form select:focus-visible { outline: 3px solid rgba(95,125,67,.35); border-color: var(--moss); }
