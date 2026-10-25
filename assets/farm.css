@@ -132,6 +132,16 @@ h2 {
 }
 p { margin: 0 0 1.2em; max-width: var(--measure); }
 
+/* 見出しは単語の途中で改行しない。
+   対応ブラウザ（Chrome・Edge）は文節で、それ以外は <wbr> の位置で折り返す */
+h2, h3, main h1 {
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  word-break: auto-phrase;
+  text-wrap: balance;
+}
+
+
 /* 写真の仮置き */
 .photo {
   position: relative;
@@ -425,7 +435,7 @@ div.door .go { color: var(--soil); font-weight: 500; }
   align-items: center;
 }
 .footer-sub a { color: #C9D3CD; font-size: 13px; }
-.footer-sub small { margin: 0; }
+.footer-sub small { margin: 0 0 0 auto; }
 
 @media (max-width: 760px) {
   .site-nav { gap: 14px; font-size: 13px; }
