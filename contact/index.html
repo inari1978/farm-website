@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>お問い合わせ｜DiDiFarm</title>
+<meta name="description" content="DiDiFarmへのお問い合わせはこちらから。畑の野菜や作り置きについて、お気軽にどうぞ。">
+<!-- 送信先（Googleスプレッドシート）とつなぐまでは検索に載せない -->
+<meta name="robots" content="noindex">
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/farm.css">
+</head>
+<body>
+
+<header class="page-head">
+  <a class="hero-site" href="../">DiDiFarm</a>
+  <nav class="site-nav" aria-label="サイト内のリンク"><a href="../farm/">長野の畑</a></nav>
+  <svg class="contour" viewBox="0 0 1200 300" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2">
+    <path opacity=".10" d="M0 230 C200 200 330 150 520 140 S860 110 1200 130"/>
+    <path opacity=".15" d="M0 255 C220 230 360 180 540 170 S880 140 1200 155"/>
+    <path opacity=".20" d="M0 280 C240 260 390 215 560 205 S900 180 1200 185"/>
+  </svg>
+  <div class="inner">
+    <h1>お問い合わせ</h1>
+    <p>畑の野菜のこと、<wbr>作り置きのこと、<wbr>なんでもどうぞ。<br>3日以内に、<wbr>メールでお返事します。</p>
+  </div>
+</header>
+
+<main>
+  <section class="contact" aria-label="お問い合わせフォーム">
+    <div class="inner">
+
+      <!-- 送信先が未設定のあいだだけ表示する（assets/contact.js が出し分け） -->
+      <p class="demo-note" hidden>このフォームは準備中です。いまは送信しても届きません。</p>
+
+      <form id="contact-form" class="form" novalidate>
+        <div class="field">
+          <label for="f-name">お名前<span class="req">必須</span></label>
+          <input id="f-name" name="name" type="text" autocomplete="name" required maxlength="50">
+          <p class="error" id="e-name" hidden>お名前を入力してください。</p>
+        </div>
+
+        <div class="field">
+          <label for="f-email">メールアドレス<span class="req">必須</span></label>
+          <input id="f-email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="100" placeholder="例：name@example.com">
+          <p class="error" id="e-email" hidden>メールアドレスの形式で入力してください。例：name@example.com</p>
+        </div>
+
+        <fieldset class="field">
+          <legend>お問い合わせの種類<span class="req">必須</span></legend>
+          <div class="chips">
+            <label class="chip"><input type="radio" name="topic" value="作り置きについて" required><span>作り置きについて</span></label>
+            <label class="chip"><input type="radio" name="topic" value="野菜について"><span>野菜について</span></label>
+            <label class="chip"><input type="radio" name="topic" value="その他"><span>その他</span></label>
+          </div>
+          <p class="error" id="e-topic" hidden>種類を1つ選んでください。</p>
+        </fieldset>
+
+        <div class="field">
+          <label for="f-message">内容<span class="req">必須</span></label>
+          <textarea id="f-message" name="message" rows="7" required maxlength="2000" placeholder="例：作り置きをお願いしたいです。世田谷区で、土曜日の午前を希望しています。"></textarea>
+          <p class="hint"><span id="count">0</span> / 2000文字</p>
+          <p class="error" id="e-message" hidden>内容を入力してください。</p>
+        </div>
+
+        <!-- 迷惑な自動送信よけ。人には見えない欄で、入力があれば送信しない -->
+        <div class="trap" aria-hidden="true">
+          <label for="f-website">この欄は空のままにしてください</label>
+          <input id="f-website" name="website" type="text" tabindex="-1" autocomplete="off">
+        </div>
+
+        <div class="field privacy">
+          <details>
+            <summary>個人情報の取り扱いについて</summary>
+            <ul>
+              <li>いただいたお名前・メールアドレス・内容は、お問い合わせへのお返事のためだけに使います。</li>
+              <li>ご本人の同意なく、第三者に渡すことはありません（法令にもとづく場合を除きます）。</li>
+              <li>内容は DiDiFarm が管理する Google スプレッドシートに保管し、お返事が済んだあと不要になったものは削除します。</li>
+              <li>ご自身の情報の確認・削除をご希望の場合は、このフォームからご連絡ください。</li>
+            </ul>
+          </details>
+          <label class="check"><input type="checkbox" name="agree" id="f-agree" required><span>個人情報の取り扱いに同意する</span></label>
+          <p class="error" id="e-agree" hidden>送信するには、同意にチェックを入れてください。</p>
+        </div>
+
+        <button class="button submit" type="submit">送信する</button>
+        <p class="error form-error" id="e-send" role="alert" hidden>送信できませんでした。時間をおいてもう一度お試しいただくか、インスタのメッセージからご連絡ください。</p>
+      </form>
+
+      <div class="done" id="done" tabindex="-1" hidden>
+        <h2>送信しました</h2>
+        <p>お問い合わせありがとうございます。3日以内に、入力いただいたメールアドレスへお返事します。</p>
+        <p class="demo-note" hidden>※準備中のため、実際には送信されていません。</p>
+        <a class="button" href="../">トップへ戻る</a>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="inner">
+    <div>
+      <p class="name">DiDiFarm</p>
+      <p>畑：長野県〇〇市　作り置き：東京・神奈川</p>
+    </div>
+    <nav aria-label="フッターのリンク">
+      <a href="../">トップ</a>
+      <a href="../farm/">長野の畑</a>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener">インスタ</a>
+      <a href="./" aria-current="page">お問い合わせ</a>
+    </nav>
+  </div>
+  <div class="inner footer-sub">
+    <small>© DiDiFarm</small>
+  </div>
+</footer>
+
+<script src="../assets/contact.js"></script>
+</body>
+</html>
