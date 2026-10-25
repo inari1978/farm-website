@@ -20,9 +20,7 @@ message.addEventListener("input", () => { count.textContent = message.value.leng
 
 // 入力チェック。問題のある欄にメッセージを出し、最初の欄へ移動する
 const rules = [
-  { id: "name", ok: () => f["name"].value.trim() !== "" },
   { id: "email", ok: () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f["email"].value.trim()) },
-  { id: "topic", ok: () => form.querySelector('input[name="topic"]:checked') !== null },
   { id: "message", ok: () => f["message"].value.trim() !== "" },
   { id: "agree", ok: () => f["agree"].checked },
 ];
@@ -66,7 +64,7 @@ form.addEventListener("submit", async (e) => {
       const body = new URLSearchParams({
         name: f["name"].value.trim(),
         email: f["email"].value.trim(),
-        topic: form.querySelector('input[name="topic"]:checked').value,
+        topic: form.querySelector('input[name="topic"]:checked')?.value ?? "",
         message: f["message"].value.trim(),
       });
       // Apps Script は別ドメインのため、応答の中身は読まずに送るだけにする
