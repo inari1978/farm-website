@@ -2,6 +2,9 @@
 
 DiDiFarm のホームページ（GitHub Pages で公開）。
 
+- ホームページ：https://inari1978.github.io/farm-website/
+- 文字・写真の編集画面：https://app.pagescms.org/inari1978/farm-website/main （ログインが必要）
+
 ## 文字と写真の編集
 
 編集画面（[Pages CMS](https://app.pagescms.org)）から編集する。保存すると1〜2分でサイトに反映される。
