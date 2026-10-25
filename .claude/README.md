@@ -21,3 +21,15 @@
 |---|---|
 | `skills/frontend-design` | テンプレ感のない見た目づくり（配色・書体・レイアウトの方向性） |
 | `skills/webapp-testing` | Playwright でページを実際に開いて表示確認・スクリーンショット |
+
+## セキュリティ・デザイン（inari1978/ClaudeCode-skills から移植）
+
+出典: https://github.com/inari1978/ClaudeCode-skills （コミット a2852cb）。参照パスを保つため番号付きのフォルダ名のまま置いている。
+
+| ファイル | 用途 |
+|---|---|
+| `skills/1610-security-audit` | コード全体のセキュリティ監査（「セキュリティ監査して」で起動）。方法論は Cloudflare security-audit-skill（MIT、`references/LICENSE`） |
+| `agents/security-reviewer.md` + `personas/security/CLAUDE.md` | 特定ページ・コードのセキュリティ観点レビュー役 |
+| `agents/designer-reviewer.md` + `personas/designer/CLAUDE.md` | UI/UX・アクセシビリティ観点のレビュー役 |
+
+持ってこなかったもの: `9050-frontend-design`・`9130-webapp-testing`（上の公開スキルと同一内容）、`9010-brand-guidelines`（Anthropic 社のブランド用）、PM・設計書・Office系スキル（Webサイト制作に不要）。
