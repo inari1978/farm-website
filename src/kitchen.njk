@@ -1,0 +1,84 @@
+{% extends "_base.njk" %}
+{% import "_macros.njk" as m %}
+{% set c = kitchen %}
+{% block body %}
+{%- if not c.published %}
+<div class="draft-note">たたき台です。このページは準備中のため、公開時まで非公開にします。</div>
+{%- endif %}
+
+<header class="hero">
+  <a class="hero-site" href="../">DiDiFarm</a>
+  {{ m.nav(page, root, kitchen) }}
+
+  <svg class="contour" viewBox="0 0 1200 600" preserveAspectRatio="none" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.2">
+    <path opacity=".10" d="M0 520 C200 470 330 380 520 360 S860 300 1200 330"/>
+    <path opacity=".14" d="M0 540 C220 500 360 420 540 400 S880 350 1200 370"/>
+    <path opacity=".18" d="M0 560 C240 530 390 460 560 440 S900 400 1200 410"/>
+    <path opacity=".22" d="M0 578 C260 556 420 500 580 482 S920 448 1200 452"/>
+  </svg>
+
+  {{ m.heroText(c.hero) }}
+</header>
+
+<main>
+
+  <section class="intro" aria-labelledby="about-title">
+    <div class="inner">
+      {{ m.photo(c.intro.photo, '台所で作り置きをつくる様子', '台所で調理する様子', root) }}
+      <div>
+        <h2 id="about-title">どんなサービスか</h2>
+        <p class="lead">{{ c.intro.lead }}</p>
+        {{ c.intro.body | paras }}
+      </div>
+    </div>
+  </section>
+
+  <section class="flow" aria-labelledby="flow-title">
+    <div class="inner">
+      <h2 id="flow-title">ご利用の流れ</h2>
+      <ol class="steps">
+        {%- for step in c.steps %}
+        <li><h3>{{ step.title }}</h3><p>{{ step.text }}</p></li>
+        {%- endfor %}
+      </ol>
+    </div>
+  </section>
+
+  <section class="now-insta" aria-labelledby="facts-title">
+    <div class="inner" style="display:block">
+      <h2 id="facts-title">料金と<wbr>対応エリア</h2>
+      <dl class="facts">
+        {%- for fact in c.facts %}
+        <div><dt>{{ fact.label }}</dt><dd>{{ fact.value }}{% if fact.note %}<small>{{ fact.note }}</small>{% endif %}</dd></div>
+        {%- endfor %}
+      </dl>
+    </div>
+  </section>
+
+  <section class="faq" aria-labelledby="faq-title">
+    <div class="inner">
+      <h2 id="faq-title">よくある質問</h2>
+      {%- for item in c.faq %}
+      <details>
+        <summary>{{ item.question }}</summary>
+        <p>{{ item.answer }}</p>
+      </details>
+      {%- endfor %}
+    </div>
+  </section>
+
+  <section class="next" aria-label="申し込み">
+    <div class="inner" style="grid-template-columns:1fr">
+      <article>
+        <span class="status">{{ c.apply.status }}</span>
+        <h3>{{ c.apply.title | heading }}</h3>
+        <p>{{ c.apply.text }}</p>
+        {%- if c.apply.status == '受付中' %}
+        <a class="button" href="../contact/">お問い合わせから申し込む</a>
+        {%- endif %}
+      </article>
+    </div>
+  </section>
+
+</main>
+{% endblock %}

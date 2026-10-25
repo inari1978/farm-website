@@ -1,0 +1,66 @@
+# サイトの公開
+# main に変更が入るたび（編集画面での保存も含む）に、写真を縮小 → サイトを組み立て → GitHub Pages に公開する
+# プルリクエストでは、組み立てられるかだけを確かめる（公開はしない）
+name: Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# 編集画面で続けて保存したときは、順番に処理する（途中で打ち切ると公開が中途半端になるため）
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # 縮小した写真をコミットし直すため
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: 写真を縮小し、撮影場所などの情報を消す
+        run: npm run images
+
+      - name: 縮小した写真をコミットし直す
+        if: github.event_name != 'pull_request'
+        run: |
+          if [ -z "$(git status --porcelain images)" ]; then exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add images
+          git commit -m "写真を公開用に縮小"
+          # 処理中に編集画面から別の保存が入っていても重ねられるようにする
+          git pull --rebase origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
+      - run: npm run build
+
+      - uses: actions/upload-pages-artifact@v3
+        if: github.event_name != 'pull_request'
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4

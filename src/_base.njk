@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<meta name="description" content="{{ description }}">
+{%- if noindex %}
+<meta name="robots" content="noindex">
+{%- endif %}
+<link rel="icon" href="{{ root }}assets/favicon.svg" type="image/svg+xml">
+{%- if ogp %}
+<!-- SNSで共有したときの表示（公開URLが変わったら scripts/build.mjs の SITE_URL を直す） -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ title }}">
+<meta property="og:description" content="{{ description }}">
+<meta property="og:url" content="{{ siteUrl }}{{ path }}">
+{%- if site.ogp_image %}
+<meta property="og:image" content="{{ site.ogp_image | absUrl }}">
+{%- endif %}
+<meta name="twitter:card" content="summary_large_image">
+{%- endif %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@500;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ root }}assets/farm.css?v={{ version }}">
+</head>
+<body>
+
+{% block body %}{% endblock %}
+
+<footer>
+  <div class="inner">
+    <div>
+      <p class="name">DiDiFarm</p>
+      <p>{{ site.footer_area }}</p>
+    </div>
+    <nav aria-label="フッターのリンク">
+      <a href="{{ root or './' }}"{% if page == 'top' %} aria-current="page"{% endif %}>トップ</a>
+      <a href="{{ root }}farm/"{% if page == 'farm' %} aria-current="page"{% endif %}>長野の畑</a>
+      {%- if kitchen.published or page == 'kitchen' %}
+      <a href="{{ root }}kitchen/"{% if page == 'kitchen' %} aria-current="page"{% endif %}>作り置き</a>
+      {%- endif %}
+      <a href="{{ site.instagram_url | safeUrl }}" target="_blank" rel="noopener">インスタ</a>
+      <a href="{{ root }}contact/"{% if page == 'contact' %} aria-current="page"{% endif %}>お問い合わせ</a>
+    </nav>
+  </div>
+  <div class="inner footer-sub">
+    <small>© DiDiFarm</small>
+  </div>
+</footer>
+{% block scripts %}{% endblock %}
+</body>
+</html>

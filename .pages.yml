@@ -1,0 +1,289 @@
+# 編集画面（Pages CMS：https://app.pagescms.org）の設定
+# 編集する人が触れるのは content/*.yml と images/ だけ。デザイン（src/・assets/）は編集画面に出さない
+
+settings:
+  commit:
+    identity: user # 誰が編集したかを履歴に残す
+
+media:
+  input: images
+  output: images
+  extensions: [jpg, jpeg, png, webp]
+  rename: random # 日本語や空白を含むファイル名でも壊れないように付け直す
+
+components:
+  hero:
+    label: 一番上の大きな見出し
+    type: object
+    fields:
+      - name: place_small
+        label: 小さな文字（上）
+        type: string
+      - name: place_big
+        label: 大きな文字
+        type: string
+      - name: place_after
+        label: 小さな文字（下）
+        type: string
+      - name: catch
+        label: キャッチコピー
+        description: 改行した位置で、サイトでも改行します
+        type: text
+        required: true
+      - name: catch_sub
+        label: キャッチコピーの下の一文
+        type: string
+  intro:
+    label: 写真と紹介文
+    type: object
+    fields:
+      - name: photo
+        label: 写真（縦長がおすすめ）
+        description: スマホで撮った写真をそのまま選べます。公開のときに自動で縮小します
+        type: image
+      - name: lead
+        label: 最初の一文（大きめの文字）
+        type: text
+      - name: body
+        label: 本文
+        description: 1行が1段落になります
+        type: text
+  insta:
+    label: 「インスタで」の欄
+    type: object
+    fields:
+      - name: heading
+        label: 見出し
+        description: 「、」や空白の位置で折り返します（空白は表示されません）
+        type: string
+      - name: text
+        label: 説明
+        type: text
+
+content:
+  - name: site
+    label: サイト共通
+    type: file
+    path: content/site.yml
+    format: yaml
+    fields:
+      - name: instagram_url
+        label: インスタのURL
+        description: https:// から始まるURL
+        type: string
+        pattern:
+          regex: ^https?://\S+$
+          message: https:// から始まるURLを入れてください
+      - name: footer_area
+        label: ページ下の所在地
+        type: string
+      - name: ogp_image
+        label: SNSでURLを送ったときの画像
+        description: 横長（1200×630px くらい）
+        type: image
+      - name: insta_photos
+        label: インスタの写真
+        description: トップは最初の3枚、畑のページは最初の6枚を使います（正方形がおすすめ）
+        type: object
+        list:
+          max: 6
+          collapsible:
+            summary: "{index}枚目"
+        fields:
+          - name: photo
+            label: 写真
+            type: image
+            required: true
+          - name: alt
+            label: 写真の説明（目の不自由な方の読み上げ用）
+            type: string
+          - name: link
+            label: リンク先（空ならインスタのトップ）
+            type: string
+
+  - name: top
+    label: トップページ
+    type: file
+    path: content/top.yml
+    format: yaml
+    fields:
+      - name: hero
+        component: hero
+      - name: intro
+        label: 「はじめまして」
+        component: intro
+      - name: farm_card
+        label: 「長野の畑」のカード
+        type: object
+        fields:
+          - name: photo
+            label: 写真（横長）
+            type: image
+          - name: text
+            label: 説明
+            type: text
+      - name: kitchen_card
+        label: 「作り置き」のカード
+        type: object
+        fields:
+          - name: photo
+            label: 写真（横長）
+            type: image
+          - name: text
+            label: 説明
+            type: text
+      - name: insta
+        component: insta
+
+  - name: farm
+    label: 長野の畑
+    type: file
+    path: content/farm.yml
+    format: yaml
+    fields:
+      - name: hero
+        component: hero
+      - name: intro
+        label: 「はじめに」
+        component: intro
+      - name: journey
+        label: 畑のこれから
+        description: 上から順に表示します。今の段階に「いまここ」の印を付けます
+        type: object
+        list:
+          collapsible:
+            summary: "{when}　{title}"
+        fields:
+          - name: when
+            label: 時期
+            type: string
+          - name: title
+            label: やること
+            type: string
+          - name: text
+            label: 説明
+            type: text
+          - name: now
+            label: いまここ
+            type: boolean
+      - name: crops
+        label: 育てる予定の野菜
+        type: object
+        list:
+          collapsible:
+            summary: "{name}"
+        fields:
+          - name: name
+            label: 野菜の名前
+            type: string
+            required: true
+          - name: season
+            label: 時期
+            type: string
+          - name: text
+            label: 説明
+            type: text
+          - name: photo
+            label: 写真（正方形がおすすめ）
+            type: image
+      - name: crops_note
+        label: 野菜の一覧の下の注記
+        type: string
+      - name: insta
+        component: insta
+      - name: next
+        label: これからはじめること
+        type: object
+        list:
+          collapsible:
+            summary: "{title}"
+        fields:
+          - name: status
+            label: ラベル
+            description: 例：準備中、受付中
+            type: string
+          - name: title
+            label: 見出し
+            type: string
+          - name: text
+            label: 説明
+            type: text
+          - name: kitchen_link
+            label: 「くわしく見る」で作り置きのページへつなぐ（作り置きのページを公開したときだけ表示）
+            type: boolean
+
+  - name: kitchen
+    label: 作り置き
+    type: file
+    path: content/kitchen.yml
+    format: yaml
+    fields:
+      - name: published
+        label: このページを公開する
+        description: オフのあいだは、どのページからもリンクせず、検索にも載せません
+        type: boolean
+      - name: hero
+        component: hero
+      - name: intro
+        label: 「どんなサービスか」
+        component: intro
+      - name: steps
+        label: ご利用の流れ
+        type: object
+        list:
+          collapsible:
+            summary: "{index}. {title}"
+        fields:
+          - name: title
+            label: 見出し
+            type: string
+          - name: text
+            label: 説明
+            type: text
+      - name: facts
+        label: 料金と対応エリア
+        type: object
+        list:
+          collapsible:
+            summary: "{label}"
+        fields:
+          - name: label
+            label: 項目
+            description: 例：料金
+            type: string
+          - name: value
+            label: 内容（大きな文字）
+            description: 例：〇〇円〜
+            type: string
+          - name: note
+            label: 補足（小さな文字）
+            type: string
+      - name: faq
+        label: よくある質問
+        type: object
+        list:
+          collapsible:
+            summary: "{question}"
+        fields:
+          - name: question
+            label: 質問
+            type: string
+          - name: answer
+            label: 答え
+            type: text
+      - name: apply
+        label: 申し込みの欄
+        type: object
+        fields:
+          - name: status
+            label: 受付の状況
+            description: 「受付中」にすると、お問い合わせページへのボタンが出ます
+            type: select
+            options:
+              values: [準備中, 受付中]
+          - name: title
+            label: 見出し
+            type: string
+          - name: text
+            label: 説明
+            type: text

@@ -1,0 +1,40 @@
+{# ページ共通の部品。中身は content/*.yml から渡す #}
+
+{% macro nav(page, root, kitchen) -%}
+<nav class="site-nav" aria-label="サイト内のリンク"><a href="{{ root }}farm/"{% if page == 'farm' %} aria-current="page"{% endif %}>長野の畑</a>
+{%- if kitchen.published or page == 'kitchen' %}<a href="{{ root }}kitchen/"{% if page == 'kitchen' %} aria-current="page"{% endif %}>作り置き</a>{% endif %}</nav>
+{%- endmacro %}
+
+{# 写真。未設定・読み込み失敗のときは label を仮置きの文字として出す #}
+{% macro photo(src, alt, label, root, tag='div', href='') -%}
+<{{ tag }} class="photo"{% if href %} href="{{ href }}" target="_blank" rel="noopener"{% endif %}>
+{%- if src %}<img src="{{ src | media(root) }}" alt="{{ alt }}" loading="lazy" onerror="this.remove()">{% endif %}{{ label }}</{{ tag }}>
+{%- endmacro %}
+
+{% macro heroText(hero) -%}
+  <p class="hero-altitude">{{ hero.place_small }}<strong>{{ hero.place_big }}</strong>{{ hero.place_after }}</p>
+
+  <h1 class="hero-copy">{{ hero.catch | lines }}<span>{{ hero.catch_sub }}</span></h1>
+{%- endmacro %}
+
+{# トップと畑の「インスタで」。count 枚まで写真を並べ、未設定なら仮置きの枠を出す #}
+{% macro insta(block, site, count, root) -%}
+  <section class="now-insta" aria-labelledby="insta-title">
+    <div class="inner">
+      <div>
+        <h2 id="insta-title">{{ block.heading | heading }}</h2>
+        <p>{{ block.text }}</p>
+        <a class="button" href="{{ site.instagram_url | safeUrl }}" target="_blank" rel="noopener">インスタを見る</a>
+      </div>
+      <div class="insta-grid" aria-label="インスタの写真">
+        {%- set photos = site.insta_photos or [] %}
+        {%- for i in range(0, count) %}
+        {%- set p = photos[i] %}
+        {%- if photos.length == 0 or p %}
+        {{ photo(p.photo if p else '', (p.alt if p and p.alt else 'インスタの投稿' + (i + 1)), '投稿' + (i + 1), root, 'a', ((p.link if p and p.link else site.instagram_url) | safeUrl)) }}
+        {%- endif %}
+        {%- endfor %}
+      </div>
+    </div>
+  </section>
+{%- endmacro %}
