@@ -3,7 +3,7 @@
 
 settings:
   commit:
-    identity: user # 誰が編集したかを履歴に残す
+    identity: app # メール招待の人も保存できるように、Pages CMS アプリの名義で保存する（誰が編集したかは GitHub の履歴に残らない）
 
 media:
   input: images
